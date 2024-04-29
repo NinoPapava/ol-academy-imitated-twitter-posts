@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Avatar } from '@material-ui/core'
 import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, VerifiedUser } from '@material-ui/icons'
 import '../Styles/posts.scss'
+import { Photos } from './Photos'
 
 const Post = () => {
   const [posts, setPosts] = useState([])
@@ -42,7 +43,7 @@ const Post = () => {
                 <p >{post.body}</p>
               </div>
             </div>
-            <img src='' alt='' />
+            <Photos postId={post.id} />
             <div className='post__footer'>
               <ChatBubbleOutline className='icon' />
               <Repeat className='icon' />
