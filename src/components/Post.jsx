@@ -1,11 +1,11 @@
+import '../Styles/posts.scss'
 import { useState, useEffect, useRef } from 'react'
-import { Avatar } from '@material-ui/core'
 import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, VerifiedUser } from '@material-ui/icons'
 import { Photos } from '../Api/Photos'
 import { Comments } from '../Api/Comments'
-import '../Styles/posts.scss'
 import { ClickPopup } from './ClickPopup'
 import { ContextPopup } from './ContextPopup'
+import { DefAvatar } from './DefAvatar'
 
 const Post = () => {
   const [posts, setPosts] = useState([])
@@ -55,7 +55,7 @@ const Post = () => {
               <div onClick={() => { setSelectedPost(post); setIsPostOpen(true); setOpenDropdown(false) }} >
                 <div className='post__body'  >
                   <div className='post__avatar'>
-                    <Avatar />
+                    <DefAvatar className="post__avatar" name={post.title.charAt(0)} />
                   </div>
                   <h3>{post.title}</h3>
                   <span className='post__headerSp'>
