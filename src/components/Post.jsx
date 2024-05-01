@@ -11,6 +11,7 @@ const Post = () => {
   const [posts, setPosts] = useState([])
   const [isPostOpen, setIsPostOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const postPopupRef = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -51,7 +52,7 @@ const Post = () => {
         {posts.map(post => (
           <div key={post.id} >
             <div className='post'>
-              <div onClick={() => { setSelectedPost(post); setIsPostOpen(true)}} >
+              <div onClick={() => { setSelectedPost(post); setIsPostOpen(true); setOpenDropdown(false) }} >
                 <div className='post__body'  >
                   <div className='post__avatar'>
                     <Avatar />
@@ -71,14 +72,14 @@ const Post = () => {
               </div>
               <div >
                 <div className='post__dropdown'>
-                  <span className='post__span'>...</span>
+                  <span className='post__span'  onClick={() => setOpenDropdown(!openDropdown)}>...</span>
                   <div className='post__dropdownSp'>
-                    {/* აქ უნდა გავხსნა dropDown  */}
+                  {openDropdown && (
                     <div className='post__dropdownContent'>
                       <p>like</p>
-                      <p>See Tweet</p>
+                      <p onClick={() => { setSelectedPost(post); setIsPostOpen(true); }}>See Tweet</p>
                     </div>
-                    {/*  */}
+                  )}
                   </div>
                 </div>
                 <div className='post__icons'>
