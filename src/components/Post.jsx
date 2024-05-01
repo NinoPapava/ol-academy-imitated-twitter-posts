@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Avatar } from '@material-ui/core'
 import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, VerifiedUser } from '@material-ui/icons'
-import { Photos } from '../Api/Photos' 
+import { Photos } from '../Api/Photos'
 import { Comments } from '../Api/Comments'
 import '../Styles/posts.scss'
 
@@ -16,47 +16,53 @@ const Post = () => {
   }, [])
 
   return (
-    <>
-      {posts.map(post => (
-        <div key={post.id} className='post'>
-          <div className='post__avatar'>
-            <Avatar />
+    <div>
+    {posts.map(post => (
+      <div key={post.id} >
+        <div className='post'>
+          <div>
+            <div className='post__body'  >
+              <div className='post__avatar'>
+                <Avatar />
+              </div>
+              <h3>{post.title}</h3>
+              <span className='post__headerSp'>
+                <VerifiedUser className='post__badge' />
+                @{post.userId}
+              </span>
+            </div>
+            <div className='post__bodySp' >
+              <p >{post.body}</p>
+            </div>
+            <div className='post__image' >
+              <Photos postId={post.id} />
+            </div>
           </div>
-          <div className='post__body'>
-            <div className='post__header'>
-              <div className='post__headerText'>
-                <h3>{post.title}</h3>
-                <span className='post__headerSp'>
-                  <VerifiedUser className='post__badge' />
-                  @{post.userId}
-                </span>
-                <div className='post__dropdown'>
-                  <span>...</span>
-                  <div className='post__dropdown'>
-                    <div className='post__dropdownContent'>
-                      <button>like</button>
-                      <button>See Tweet</button>
-                    </div>
+          <div >
+            <div className='post__dropdown'>
+              <span className='post__span'>...</span>
+              <div className='post__dropdownSp'>
+                {/* აქ უნდა გავხსნა dropDown  */}
+                  <div className='post__dropdownContent'>
+                    <p>like</p>
+                    <p>See Tweet</p>
                   </div>
-                </div>
-              </div>
-              <div className='post__bodySp'>
-                <p >{post.body}</p>
+                  {/*  */}
               </div>
             </div>
-            <Photos postId={post.id} />
-            <div className='post__footer'>
-              <ChatBubbleOutline className='icon' />
-              <Repeat className='icon' />
-              <Favorite className='icon' />
-              <BarChart className='icon' />
-              <BookmarkBorder className='icon' />
+            <div className='post__icons'>
+              <ChatBubbleOutline />
+              <Repeat />
+              <Favorite />
+              <BarChart />
+              <BookmarkBorder />
             </div>
+            <Comments />
           </div>
-          <Comments />
         </div>
-      ))}
-    </>
+      </div>
+    ))}
+    </div>
   )
 }
 
