@@ -1,6 +1,6 @@
 import '../Styles/posts.scss'
 import { useState, useEffect, useRef } from 'react'
-import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, VerifiedUser } from '@material-ui/icons'
+import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, FavoriteBorder, Repeat, VerifiedUser } from '@material-ui/icons'
 import { Photos } from '../Api/Photos'
 import { Comments } from '../Api/Comments'
 import { ClickPopup } from './ClickPopup'
@@ -13,6 +13,20 @@ const Post = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
   const postPopupRef = useRef(null);
+
+  const [liked, setLiked] = useState(() => {
+    const likedPosts = localStorage.getItem('likedPosts');
+    return likedPosts ? JSON.parse(likedPosts) : {};
+  })
+
+  const toggleLike = (postId) => {
+    setLiked((likedId) => {
+      const saveLikedPostId = { ...likedId };
+      saveLikedPostId[postId] ? delete saveLikedPostId[postId] : saveLikedPostId[postId] = true
+      localStorage.setItem('likedPosts', JSON.stringify(saveLikedPostId));
+      return saveLikedPostId;
+    });
+  };
 
   const handleClickOutside = (event) => {
     if (postPopupRef.current && postPopupRef.current.contains(event.target)) {
@@ -76,7 +90,7 @@ const Post = () => {
                   <div className='post__dropdownSp'>
                   {openDropdown && (
                     <div className='post__dropdownContent'>
-                      <p>like</p>
+                    {liked[post.id] ? <p onClick={() => toggleLike(post.id)}>Unlike</p> : <p onClick={() => toggleLike(post.id)}>Like</p>}
                       <p onClick={() => { setSelectedPost(post); setIsPostOpen(true); }}>See Tweet</p>
                     </div>
                   )}
@@ -85,7 +99,7 @@ const Post = () => {
                 <div className='post__icons'>
                   <ChatBubbleOutline />
                   <Repeat />
-                  <Favorite />
+                  {liked[post.id] ? <Favorite onClick={() => toggleLike(post.id)} /> : <FavoriteBorder onClick={() => toggleLike(post.id)} />}
                   <BarChart />
                   <BookmarkBorder />
                 </div>
