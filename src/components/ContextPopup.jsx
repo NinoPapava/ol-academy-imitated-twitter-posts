@@ -1,6 +1,7 @@
 import React from 'react'
 import { Comments } from '../Api/Comments'
 import { Photos } from '../Api/Photos'
+import '../Styles/context.scss'
 
 const ContextPopup = ({ onClose, post }) => {
 
