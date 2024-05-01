@@ -4,6 +4,8 @@ import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, Verified
 import { Photos } from '../Api/Photos'
 import { Comments } from '../Api/Comments'
 import '../Styles/posts.scss'
+import { ClickPopup } from './ClickPopup'
+import { ContextPopup } from './ContextPopup'
 
 const Post = () => {
   const [posts, setPosts] = useState([])
@@ -38,14 +40,18 @@ const Post = () => {
     <>
       {isPostOpen && selectedPost ? (
         <>
-          {/* აქ იქნება დაკლიკული პოსტის პოპაპი */}
+        <ClickPopup onClick={() => setIsPostOpen(!isPostOpen)} >
+            <ContextPopup post={selectedPost} onClose={() => setIsPostOpen(!isPostOpen)} >
+              <Comments postId={selectedPost.id} />
+            </ContextPopup>
+          </ClickPopup>
         </>
       ) : (
         <>
         {posts.map(post => (
           <div key={post.id} >
             <div className='post'>
-              <div>
+              <div onClick={() => { setSelectedPost(post); setIsPostOpen(true)}} >
                 <div className='post__body'  >
                   <div className='post__avatar'>
                     <Avatar />
