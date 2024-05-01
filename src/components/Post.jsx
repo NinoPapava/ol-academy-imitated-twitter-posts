@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Avatar } from '@material-ui/core'
 import { BarChart, BookmarkBorder, ChatBubbleOutline, Favorite, Repeat, VerifiedUser } from '@material-ui/icons'
+import { Photos } from '../Api/Photos' 
+import { Comments } from '../Api/Comments'
 import '../Styles/posts.scss'
-import { Photos } from './Photos'
 
 const Post = () => {
   const [posts, setPosts] = useState([])
@@ -52,6 +53,7 @@ const Post = () => {
               <BookmarkBorder className='icon' />
             </div>
           </div>
+          <Comments />
         </div>
       ))}
     </>
